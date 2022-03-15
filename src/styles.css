@@ -1,0 +1,260 @@
+@import url('http://fonts.cdnfonts.com/css/circular-std');
+@import url('http://fonts.cdnfonts.com/css/inter');
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Circular Std', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  margin: auto;
+  width: 90vw;
+  padding: 2%;
+}
+
+.header {
+  margin: 5% auto 5% auto;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5%;
+  margin-right: 2%;
+}
+
+.filter h3 {
+  margin: 0 1% 0 0;
+  width: 6rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2vmin;
+  line-height: 18px;
+  color: #989898;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-left: 3.5%;
+  margin-right: 30%;
+  height: 45px;
+  width: 25%;
+  border: 1px solid #BDBDBD;
+}
+
+.search input {
+  border: none;
+  height: 100%;
+  width: 90%;
+  outline: none;
+  padding: 0 0 0 10%;
+  font-size: 16px;
+}
+
+fieldset {
+  border: 1px solid #BDBDBD;
+  margin: 0 1.5% 0 0;
+  padding: 0.5% 0.8%;
+  width: 15%;
+  color: #8F8B8B;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6vmin;
+  line-height: 13px;
+  letter-spacing: 0.01em;
+}
+
+legend {
+  margin: 0 0 0 6%;
+  padding: 0 3%;
+}
+
+select {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  color: #3F3F3F;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.info-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 93%;
+  height: 60px;
+  margin: auto;
+  padding: 0 5px 0 5px;
+  background: #FFF4EA;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2vmin;
+  color: #252525;
+}
+
+.template-container {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+}
+
+.category-type {
+  margin-left: 4.2%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: #3F3E3E;
+}
+
+.templates-number {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2vmin;
+  line-height: 18px;
+  text-align: right;
+  margin: 10px 5%;
+  color: #989898;
+}
+
+.template {
+  position: relative;
+  display: flexbox;
+  height: 230px;
+  width: 360px;
+  min-width: 300px;
+  margin: 2.5%;
+  padding: 1.5%;
+  border-radius: 5px;
+  box-shadow: 0px 4px 30px 0px #00000014;
+  transition: .3s linear;
+}
+
+.template.loading {
+  background: #f6f7f8;
+  background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: relative; 
+  
+  animation-duration: 1s;
+  animation-fill-mode: forwards; 
+  animation-iteration-count: infinite;
+  animation-name: loadingShimmer;
+  animation-timing-function: linear;
+}
+
+@keyframes loadingShimmer {
+  from {
+    background-position: -468px 0;
+  }
+  
+  to {
+    background-position: 468px 0;
+  }
+}
+
+.template:hover {
+  transform: scale(105%);
+}
+
+.template-header {
+  width: 100%;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  color: #333447;
+  word-wrap: break-word;
+}
+
+.template-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: #3F3E3E;
+  margin-top: 10%;
+}
+
+.template-footer {
+  position: absolute;
+  display: flex;
+  height: 18%;
+  width: 100%;
+  left: 0px;
+  top: 188px;
+  padding-left: 19.55px;
+  background-color: #F9F9F9;
+  color: #08BD37;
+}
+
+.template-footer a {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  align-self: center;
+  text-decoration: none;
+  transition: .3s ease-in-out;
+}
+
+.template-footer a:hover {
+  color: #25df56 !important;
+}
+
+.template-footer a:active {
+  color: #07962d !important;
+}
+
+.template-footer a:visited {
+  color: #08BD37;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 4% 5% 2% 5%;
+}
+
+#pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pages input {
+  width: 15%;
+  margin: 0 1% 0 0;
+  border: 1px solid #3F3F3F;
+  border-radius: 5px;
+  padding: 3% 2%;
+  font-size: 2vmin;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
