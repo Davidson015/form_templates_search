@@ -8,12 +8,12 @@ const Footer = ({ page, setPage, pageLength }) => {
 
   return (
     <div className="footer">
-      <p style={{ cursor : "pointer" }} onClick={() => page === 0 ? setPage(0) : setPage(page-1)}>Previous</p>
+      <p className="previous" style={{ cursor : "pointer" }} onClick={() => page === 0 ? setPage(0) : setPage(page-1)}>Previous</p>
       <p id="pages">
         <input id="page" defaultValue={page + 1} onChange={ e => e.target.value < 1 ? setPage(page) : setPage(e.target.value - 1)} type="number" />
         of {pageLength + 1}
       </p>
-      <p style={{ cursor : "pointer" }} onClick={() => page === pageLength ? setPage(pageLength) : setPage(page + 1)}>Next</p>
+      <p className="next" style={{ cursor : "pointer" }} onClick={() => page === pageLength ? setPage(pageLength) : setPage(page + 1)}>Next</p>
     </div>
   )
 }

@@ -1,5 +1,5 @@
-@import url('http://fonts.cdnfonts.com/css/circular-std');
-@import url('http://fonts.cdnfonts.com/css/inter');
+@import url('https://fonts.cdnfonts.com/css/circular-std');
+@import url('https://fonts.cdnfonts.com/css/inter');
 
 *{
   box-sizing: border-box;
@@ -224,13 +224,25 @@ select {
 }
 
 .template-footer a:visited {
-  color: #08BD37;
+  color: #08BD37 !important;
 }
 
 .footer {
   display: flex;
   justify-content: space-between;
   margin: 4% 5% 2% 5%;
+}
+
+.footer .previous, .footer .next {
+  transition: .2s linear;
+}
+
+.footer .previous:hover, .footer .next:hover {
+  transform: scale(110%);
+}
+
+.footer .previous:active, .footer .next:active {
+  color: #4c4c4c;
 }
 
 #pages {

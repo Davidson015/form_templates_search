@@ -9,7 +9,7 @@ function App() {
   const [loading, setloading] = useState(true)
   const [page, setPage] = useState(0);
   const [categories, setCategories] = useState([]);
-  const [selectedCatgory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   
   // Fetching Templates from API
   const fetchTemplates = async () => {
@@ -49,21 +49,31 @@ function App() {
     setSelectedCategory(category)
   }
 
-  // Filtering through templates with Category
-  useEffect(() => {
-    if(selectedCatgory === "All"){
+  // Searching through templates
+  const searchTemplates = ( search ) => {
+    if ( search === '') {
       setFilteredTemplates(templates)
     } else {
-      setFilteredTemplates(templates.filter( temp => temp.category.includes(selectedCatgory)))
+      setFilteredTemplates(templates.filter( temp => temp.name.includes(search)))
     }
-  },[selectedCatgory, page, templates])
 
+    filteredTemplates.slice(page * 15, ((page + 1) * 15) )
+  }
+
+  // Filtering through templates with Category
+  useEffect(() => {
+    if(selectedCategory === "All"){
+      setFilteredTemplates(templates)
+    } else {
+      setFilteredTemplates(templates.filter( temp => temp.category.includes(selectedCategory)))
+    }
+  },[selectedCategory, page, templates])
 
   return (
     <div className="App">
-      <Header categories={categories} changeCategory={changeCategory}/>
-      <Templates templateLength={filteredTemplates.length} templates={filteredTemplates.slice(page * 15, ((page + 1) * 15) )} loading={loading}/>
-      <Footer pageLength={Math.floor(filteredTemplates.length / 15)} page={page} setPage={setPage}/>
+      <Header loading={loading} categories={categories} changeCategory={changeCategory} searchTemplates={searchTemplates} />
+      <Templates templateLength={filteredTemplates.length} templates={filteredTemplates.slice(page * 15, ((page + 1) * 15) )} loading={loading} selectedCategory={selectedCategory} />
+      <Footer pageLength={Math.floor(filteredTemplates.length / 15)} page={page} setPage={setPage} />
     </div>
   );
 }

@@ -1,11 +1,23 @@
 import { FaSearch } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 
-const Filter = ({ categories, changeCategory }) => {
+const Filter = ({ categories, changeCategory, searchTemplates, loading }) => {
+  const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1)
+
   return (
     <div className='filter'>
       <div className="search">
-        <input type="search" name="search-bar" id="search-bar" placeholder="Search Templates" />
-        <FaSearch style={{ marginLeft: '3px', marginRight: '10px', cursor: 'pointer'}} />
+        <input type="text" name="search-bar" id="search-bar" placeholder="Search Templates" onChange={ e => searchTemplates(capitalize(e.target.value))} />
+        {
+          !loading && document.getElementById('search-bar').value !== '' ? (
+            <FaTimes style={{ marginLeft: '3px', marginRight: '10px', cursor: 'pointer'}} onClick={ e => {
+              document.getElementById('search-bar').value = ''
+              searchTemplates('')
+            }} />
+          ) : (
+            <FaSearch style={{ marginLeft: '3px', marginRight: '10px', cursor: 'pointer'}} />
+          )
+        }
       </div>
 
       <h3>Sort By: </h3>

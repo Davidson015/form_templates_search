@@ -1,9 +1,9 @@
 import Template from "./Template"
 
-const Templates = ({ templates, loading, templateLength }) => {
+const Templates = ({ templates, loading, templateLength, selectedCategory }) => {
   return (
     <>
-    <h2 className="category-type">All Templates</h2>
+    <h2 className="category-type">{selectedCategory} Templates</h2>
     <h3 className="templates-number"> { !loading && templateLength === 0 ? '0' : templateLength || "Loading"} Templates</h3>
     <div className="template-container">
       {loading ? (
