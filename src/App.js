@@ -13,6 +13,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedOrder, setSelectedOrder] = useState('Default')
+  const [selectedDateOrder, setSelectedDateOrder] = useState('Default')
 
   // Getting state of width dimension
   useEffect( () => {
@@ -81,6 +82,17 @@ function App() {
     if(selectedCategory === "All"){
       setFilteredTemplates(templates)
     } else {
+      // Resetting other filter values
+      if(document.getElementById('order').value !== 'Default'){
+        setSelectedOrder('Default')
+        document.getElementById('order').value = 'Default'
+      }
+      if(document.getElementById('date').value !== 'Default'){
+        setSelectedDateOrder('Default')
+        document.getElementById('date').value = 'Default'
+      }
+
+      // Filtering Templates
       setFilteredTemplates(templates.filter( temp => temp.category.includes(selectedCategory)))
     }
   },[selectedCategory, page, templates])
@@ -90,11 +102,22 @@ function App() {
     setSelectedOrder(order)
   }
 
-  // Ordering templates in Ascending || Descending format
+  // Ordering templates by name in Ascending || Descending format
   useEffect(() => {
     if(selectedOrder === "Default"){
       setFilteredTemplates(filteredTemplates)
     } else {
+      // Resetting other filter values
+      if(document.getElementById('date').value !== 'Default'){
+        setSelectedDateOrder('Default')
+        document.getElementById('date').value = 'Default'
+      }
+      if(document.getElementById('category').value !== 'All'){
+        setSelectedCategory('All')
+        document.getElementById('category').value = 'All'
+      }
+
+      // Filtering Templates
      setFilteredTemplates([...filteredTemplates].sort((a,b) => {
         if (a.name.toLowerCase() < b.name.toLowerCase()) {return selectedOrder === "Ascending" ? 1 : -1}
         if (a.name.toLowerCase() > b.name.toLowerCase()) {return selectedOrder === "Ascending" ? -1 : 1}
@@ -103,9 +126,38 @@ function App() {
     }
   },[selectedOrder, filteredTemplates, page])
 
+  // Setting Creation Date filter Value
+  const dateOrder = (order) => {
+    setSelectedDateOrder(order)
+  }
+
+  // Ordering templates by Creation Date in Ascending || Descending format
+  useEffect(() => {
+    if(selectedDateOrder === 'Default') {
+      setFilteredTemplates(filteredTemplates)
+    } else {
+      // Resetting other filter values
+      if(document.getElementById('order').value !== 'Default'){
+        setSelectedOrder('Default')
+        document.getElementById('order').value = 'Default'
+      }
+      if(document.getElementById('category').value !== 'All'){
+        setSelectedCategory('All')
+        document.getElementById('category').value = 'All'
+      }
+
+      // Filtering Templates
+      setFilteredTemplates([...filteredTemplates].sort( (a,b) => {
+        if ( a.created.toLowerCase() < b.created.toLowerCase()) {return selectedDateOrder === 'Ascending' ? 1 : -1}
+        if ( a.created.toLowerCase() > b.created.toLowerCase()) {return selectedDateOrder === 'Ascending' ? -1 : 1}
+        return 0;
+      }))
+    }
+  }, [selectedDateOrder, filteredTemplates, page])
+
   return (
     <div className="App">
-      <Header loading={loading} categories={categories} changeCategory={changeCategory} changeSearch={changeSearch} changeOrder={changeOrder} />
+      <Header loading={loading} categories={categories} changeCategory={changeCategory} changeSearch={changeSearch} changeOrder={changeOrder} dateOrder={dateOrder} />
       <Templates selectedOrder={selectedOrder} templateLength={filteredTemplates.length} templates={
         (width >= 768) && (width <= 1400) ? (
           filteredTemplates.slice(page * 14, ((page + 1) * 14) )

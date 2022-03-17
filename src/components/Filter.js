@@ -1,6 +1,6 @@
 import { FaSearch, FaTimes } from 'react-icons/fa'
 
-const Filter = ({ categories, changeSearch, changeCategory, changeOrder, loading }) => {
+const Filter = ({ categories, changeSearch, changeCategory, changeOrder, dateOrder, loading }) => {
 
   return (
     <div className='filter'>
@@ -42,10 +42,10 @@ const Filter = ({ categories, changeSearch, changeCategory, changeOrder, loading
 
       <fieldset className="date-filter">
         <legend>Date</legend>
-        <select name="date" id="date">
+        <select name="date" id="date" onChange={ e => dateOrder(e.target.value)}>
           <option value="Default">Default</option>
-          <option value="Ascending">Ascending</option>
-          <option value="Descending">Descending</option>
+          <option value="Descending">Ascending</option>
+          <option value="Ascending">Descending</option>
         </select>
       </fieldset>
     </div>
