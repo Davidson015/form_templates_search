@@ -4,12 +4,25 @@ import Templates from './components/Templates'
 import Footer from './components/Footer'
 
 function App() {
+  const [width, setWidth] = useState(window.innerWidth)
   const [templates, setTemplates] = useState([]);
   const [filteredTemplates, setFilteredTemplates] = useState([]);
   const [loading, setloading] = useState(true)
   const [page, setPage] = useState(0);
   const [categories, setCategories] = useState([]);
+  const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedOrder, setSelectedOrder] = useState('Default')
+
+  // Getting state of width dimension
+  useEffect( () => {
+    window.addEventListener('resize', updateWidth)
+  })
+
+  // Update width Dimension of viewport
+  const updateWidth = () => {
+    setWidth(window.innerWidth)
+  }
   
   // Fetching Templates from API
   const fetchTemplates = async () => {
@@ -43,21 +56,24 @@ function App() {
     setCategories([...(new Set(cats))]);
     setFilteredTemplates(templates)
   },[templates, page])
-
-  // Selecting Categories
-  const changeCategory = (category) => {
-    setSelectedCategory(category)
+  
+  // Setting Search value
+  const changeSearch = ( searchValue ) => {
+    setSearch(searchValue)
   }
-
+  
   // Searching through templates
-  const searchTemplates = ( search ) => {
+  useEffect( () => {
     if ( search === '') {
       setFilteredTemplates(templates)
     } else {
       setFilteredTemplates(templates.filter( temp => temp.name.includes(search)))
     }
-
-    filteredTemplates.slice(page * 15, ((page + 1) * 15) )
+  }, [search, page, templates])
+  
+  // Setting Category Filter value
+  const changeCategory = (category) => {
+    setSelectedCategory(category)
   }
 
   // Filtering through templates with Category
@@ -69,11 +85,41 @@ function App() {
     }
   },[selectedCategory, page, templates])
 
+  // Setting Order Filter value
+  const changeOrder = (order) => {
+    setSelectedOrder(order)
+  }
+
+  // Ordering templates in Ascending || Descending format
+  useEffect(() => {
+    if(selectedOrder === "Default"){
+      setFilteredTemplates(filteredTemplates)
+    } else {
+     setFilteredTemplates([...filteredTemplates].sort((a,b) => {
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {return selectedOrder === "Ascending" ? 1 : -1}
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {return selectedOrder === "Ascending" ? -1 : 1}
+        return 0;
+      }))
+    }
+  },[selectedOrder, filteredTemplates, page])
+
   return (
     <div className="App">
-      <Header loading={loading} categories={categories} changeCategory={changeCategory} searchTemplates={searchTemplates} />
-      <Templates templateLength={filteredTemplates.length} templates={filteredTemplates.slice(page * 15, ((page + 1) * 15) )} loading={loading} selectedCategory={selectedCategory} />
-      <Footer pageLength={Math.floor(filteredTemplates.length / 15)} page={page} setPage={setPage} />
+      <Header loading={loading} categories={categories} changeCategory={changeCategory} changeSearch={changeSearch} changeOrder={changeOrder} />
+      <Templates selectedOrder={selectedOrder} templateLength={filteredTemplates.length} templates={
+        (width >= 768) && (width <= 1400) ? (
+          filteredTemplates.slice(page * 14, ((page + 1) * 14) )
+          ) : (
+            filteredTemplates.slice(page * 15, ((page + 1) * 15) )
+          )
+      } loading={loading} selectedCategory={selectedCategory} />
+      <Footer pageLength={
+        (width >= 768) && (width <= 1400) ? (
+          Math.floor(filteredTemplates.length / 14)
+        ) : (
+          Math.floor(filteredTemplates.length / 15)
+        )
+      } page={page} setPage={setPage} />
     </div>
   );
 }

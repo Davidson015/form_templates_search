@@ -20,7 +20,14 @@ body {
 }
 
 .header {
-  margin: 5% auto 5% auto;
+  margin: 2% auto 5% auto;
+  background-color: #ffffff;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  padding-top: 5%;
+  transition: .3s linear;
+  z-index: 1000;
 }
 
 .filter {
@@ -57,7 +64,19 @@ body {
   width: 90%;
   outline: none;
   padding: 0 0 0 10%;
-  font-size: 16px;
+  font-size: 90%;
+}
+
+.searchIcon {
+  transition: transform .2s linear;
+}
+
+.searchIcon:hover {
+  transform: scale(105%);
+}
+
+.searchIcon:active {
+  transform: scale(90%);
 }
 
 fieldset {
@@ -83,11 +102,12 @@ select {
   outline: none;
   width: 100%;
   height: 100%;
+  background: transparent;
   font-size: 16px;
   color: #3F3F3F;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 90%;
   line-height: 18px;
 }
 
@@ -140,7 +160,7 @@ select {
   width: 360px;
   min-width: 300px;
   margin: 2.5%;
-  padding: 1.5%;
+  padding: 30px 20px;
   border-radius: 5px;
   box-shadow: 0px 4px 30px 0px #00000014;
   transition: .3s linear;
@@ -185,12 +205,13 @@ select {
 }
 
 .template-body {
+  position: absolute;
+  top: 45%;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   color: #3F3E3E;
-  margin-top: 10%;
 }
 
 .template-footer {
@@ -221,6 +242,7 @@ select {
 
 .template-footer a:active {
   color: #07962d !important;
+  transform: scale(95%);
 }
 
 .template-footer a:visited {
@@ -230,19 +252,20 @@ select {
 .footer {
   display: flex;
   justify-content: space-between;
-  margin: 4% 5% 2% 5%;
+  margin: 4% 5% 6% 5%;
 }
 
 .footer .previous, .footer .next {
   transition: .2s linear;
+  font-size: large;
 }
 
 .footer .previous:hover, .footer .next:hover {
-  transform: scale(110%);
+  transform: scale(105%);
 }
 
 .footer .previous:active, .footer .next:active {
-  color: #4c4c4c;
+  transform: scale(95%);
 }
 
 #pages {
@@ -256,8 +279,8 @@ select {
   margin: 0 1% 0 0;
   border: 1px solid #3F3F3F;
   border-radius: 5px;
-  padding: 3% 2%;
-  font-size: 2vmin;
+  padding: 5px 0px;
+  font-size: 120%;
   text-align: center;
 }
 
@@ -269,4 +292,92 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 520px) {
+  .search {
+    width: 25%;
+    height: 35px;
+    margin-right: 5%;
+    margin-left: 1%;
+  }
+
+  .search input {
+    font-size: 65%;
+    padding-left: 2%;
+  }
+
+  .searchIcon {
+    margin-right: 5px !important;
+  }
+
+  .filter h3 {
+    width: fit-content;
+    width: -moz-fit-content;
+  }
+
+  fieldset {
+    font-size: 10px;
+    width: 16.5%;
+  }
+
+  select {
+    font-size: 12px;
+  }
+
+  .category-type {
+    font-size: 18px;
+  }
+
+  .info-msg {
+    font-size: 12px;
+  }
+
+  .templates-number {
+    font-size: 16px;
+  }
+
+  .footer {
+    margin-top: 15%;
+    margin-bottom: 10%;
+  }
+
+  #pages input {
+    font-size: larger;
+  }
+}
+
+@media screen and (min-width: 521px) and (max-width: 720px) {
+  .search {
+    margin-right: 15%;
+  }
+  
+  .search input {
+    font-size: 80%;
+    padding-left: 2%;
+  }
+
+  .searchIcon {
+    margin-right: 3px !important;
+  }
+
+  .filter h3 {
+    width: 4rem;
+  }
+
+  fieldset {
+    font-size: 12px;
+  }
+  
+  .category-type {
+    font-size: 22px;
+  }
+
+  .templates-number {
+    font-size: large;
+  }
+
+  #pages input {
+    font-size: larger;
+  }
 }

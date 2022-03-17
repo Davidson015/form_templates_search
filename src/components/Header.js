@@ -1,10 +1,10 @@
 import Filter from './Filter'
 import Info from './Info'
 
-const Header = ({ categories, changeCategory, searchTemplates, loading }) => {
+const Header = ({ categories, changeSearch, changeCategory, changeOrder, loading }) => {
   return (
     <div className='header'>
-      <Filter loading={loading} categories={categories} changeCategory={changeCategory} searchTemplates={searchTemplates} />
+      <Filter loading={loading} categories={categories} changeCategory={changeCategory} changeSearch={changeSearch} changeOrder={changeOrder} />
       <Info />
     </div>
   )

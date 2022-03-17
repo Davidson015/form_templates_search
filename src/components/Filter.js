@@ -1,21 +1,19 @@
-import { FaSearch } from 'react-icons/fa'
-import { FaTimes } from 'react-icons/fa'
+import { FaSearch, FaTimes } from 'react-icons/fa'
 
-const Filter = ({ categories, changeCategory, searchTemplates, loading }) => {
-  const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1)
+const Filter = ({ categories, changeSearch, changeCategory, changeOrder, loading }) => {
 
   return (
     <div className='filter'>
       <div className="search">
-        <input type="text" name="search-bar" id="search-bar" placeholder="Search Templates" onChange={ e => searchTemplates(capitalize(e.target.value))} />
+        <input type="text" name="search-bar" id="search-bar" placeholder="Search Templates" onChange={ e => changeSearch(e.target.value.toLowerCase())} />
         {
           !loading && document.getElementById('search-bar').value !== '' ? (
-            <FaTimes style={{ marginLeft: '3px', marginRight: '10px', cursor: 'pointer'}} onClick={ e => {
+            <FaTimes className='searchIcon' style={{ marginLeft: '3px', marginRight: '10px', cursor: 'pointer'}} onClick={ e => {
               document.getElementById('search-bar').value = ''
-              searchTemplates('')
+              changeSearch('')
             }} />
           ) : (
-            <FaSearch style={{ marginLeft: '3px', marginRight: '10px', cursor: 'pointer'}} />
+            <FaSearch className='searchIcon' style={{ marginLeft: '3px', marginRight: '10px', cursor: 'pointer'}} />
           )
         }
       </div>
@@ -35,10 +33,10 @@ const Filter = ({ categories, changeCategory, searchTemplates, loading }) => {
 
       <fieldset className="order-filter">
         <legend>Order</legend>
-        <select name="order" id="order">
+        <select name="order" id="order" onChange={ e => changeOrder(e.target.value)}>
           <option value="Default">Default</option>
-          <option value="Ascending">Ascending</option>
-          <option value="Descending">Descending</option>
+          <option value="Descending">Ascending</option>
+          <option value="Ascending">Descending</option>
         </select>
       </fieldset>
 
